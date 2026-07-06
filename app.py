@@ -85,6 +85,18 @@ def historico():
     movimentacoes = Movimentacao.query.order_by(Movimentacao.data_hora.desc()).all()
     return render_template('historico.html', movimentacoes=movimentacoes)
 
+# Rota para deletar um produto e seu histórico
+@app.route('/deletar_produto/<int:id_produto>', methods=['POST'])
+def deletar_produto(id_produto):
+    produto = Produto.query.get_or_404(id_produto)
+    
+    Movimentacao.query.filter_by(produto_id=produto.id).delete()
+    db.session.delete(produto)
+    db.session.commit()
+    
+    flash(f'Produto "{produto.nome}" deletado com sucesso!', 'success')
+    return redirect(url_for('index'))
+
 # Rota para o relatório de fluxo (semanal/mensal)
 @app.route('/relatorio')
 def relatorio():

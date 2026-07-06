@@ -39,6 +39,11 @@
                             <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='S') }}" class="btn btn-sm btn-outline-warning fw-bold">
                                 - Saída
                             </a>
+                            <form action="{{ url_for('deletar_produto', id_produto=produto.id) }}" method="POST" class="d-inline" onsubmit="return confirm('Tem certeza que deseja excluir este produto? Todo o histórico dele também será apagado.');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger fw-bold" title="Deletar Produto">
+                                    X
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     {% else %}
