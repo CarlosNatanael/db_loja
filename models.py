@@ -1,9 +1,12 @@
-# models.py
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # Instanciamos o banco de dados
 db = SQLAlchemy()
+
+def hora_brasilia():
+    return datetime.now(ZoneInfo("America/Sao_Paulo"))
 
 class Produto(db.Model):
     __tablename__ = 'produtos'
@@ -28,7 +31,7 @@ class Movimentacao(db.Model):
     quantidade = db.Column(db.Integer, nullable=False)
     
     cliente = db.Column(db.String(100), nullable=True)
-    data_hora = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    data_hora = db.Column(db.DateTime, nullable=False, default=hora_brasilia)
 
     def __repr__(self):
         return f'<Movimentacao {self.tipo} - {self.quantidade} un.>'

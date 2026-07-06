@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Produto, Movimentacao
 from sqlalchemy import func
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 
@@ -88,7 +89,7 @@ def historico():
 @app.route('/relatorio')
 def relatorio():
     periodo = request.args.get('periodo', 'mes')
-    hoje = datetime.utcnow()
+    hoje = datetime.now(ZoneInfo("America/Sao_Paulo"))
 
     if periodo == 'semana':
         data_inicio = hoje - timedelta(days=7)
