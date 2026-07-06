@@ -14,6 +14,7 @@
                     <th>Produto</th>
                     <th>Operação</th>
                     <th>Quantidade</th>
+                    <th>Cliente</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,13 @@
                             <span class="text-success fw-bold">+ {{ mov.quantidade }}</span>
                         {% else %}
                             <span class="text-warning fw-bold">- {{ mov.quantidade }}</span>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if mov.cliente %}
+                            {{ mov.cliente }}
+                        {% else %}
+                            <span class="text-muted">-</span>
                         {% endif %}
                     </td>
                 </tr>

@@ -27,7 +27,7 @@ class Movimentacao(db.Model):
     tipo = db.Column(db.String(1), nullable=False) 
     quantidade = db.Column(db.Integer, nullable=False)
     
-    # Registra a data e hora exata da movimentação automaticamente
+    cliente = db.Column(db.String(100), nullable=True)
     data_hora = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):

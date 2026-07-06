@@ -54,8 +54,14 @@ def movimentar(id_produto, tipo):
         if tipo == 'S' and quantidade > produto.quantidade_atual:
             flash(f'Erro: Estoque insuficiente. Você só tem {produto.quantidade_atual} un.', 'error')
             return redirect(url_for('movimentar', id_produto=produto.id, tipo=tipo))
-
-        nova_movimentacao = Movimentacao(produto_id=produto.id, tipo=tipo, quantidade=quantidade)
+        
+        nome_cliente = request.form.get('cliente') if tipo == 'S' else None
+        nova_movimentacao = Movimentacao(
+            produto_id=produto.id, 
+            tipo=tipo, 
+            quantidade=quantidade,
+            cliente=nome_cliente
+        )
         db.session.add(nova_movimentacao)
 
         if tipo == 'E':
