@@ -32,10 +32,10 @@
                         </span>
                     </td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm btn-outline-success fw-bold">
+                        <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='E') }}" class="btn btn-sm btn-outline-success fw-bold">
                             + Entrada
                         </a>
-                        <a href="#" class="btn btn-sm btn-outline-warning fw-bold">
+                        <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='S') }}" class="btn btn-sm btn-outline-warning fw-bold">
                             - Saída
                         </a>
                     </td>

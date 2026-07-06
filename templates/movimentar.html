@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-header {% if tipo == 'E' %}bg-success{% else %}bg-warning text-dark{% endif %} text-white">
+                <h4 class="mb-0">
+                    {% if tipo == 'E' %}Registrar Entrada{% else %}Registrar Saída{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ produto.nome }}</h5>
+                <p class="card-text text-muted">Estoque atual: <strong>{{ produto.quantidade_atual }} un.</strong></p>
+                
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="quantidade" class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" required autofocus>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Cancelar</a>
+                        <button type="submit" class="btn {% if tipo == 'E' %}btn-success{% else %}btn-warning{% endif %}">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
