@@ -1,0 +1,34 @@
+/* static/style.css */
+
+/* Fundo escuro suave para a página inteira */
+body {
+    background-color: #121212 !important;
+    color: #e0e0e0;
+}
+
+/* Deixa os cards mais elegantes no tema escuro */
+.card {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
+}
+
+/* Ajusta o cabeçalho dos cards */
+.card-header.bg-dark {
+    background-color: #000000 !important;
+    border-bottom: 1px solid #333;
+}
+
+/* Remove a cor branca de fundo dos inputs para combinar com o dark mode */
+.form-control {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+/* Muda a cor da borda quando o usuário clica no input */
+.form-control:focus {
+    background-color: #2b2b2b;
+    color: #ffffff;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
