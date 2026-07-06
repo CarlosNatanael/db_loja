@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Relatório de Fluxo</h2>
+    <div class="btn-group" role="group">
+        <a href="{{ url_for('relatorio', periodo='semana') }}" class="btn {% if periodo == 'semana' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            Últimos 7 Dias
+        </a>
+        <a href="{{ url_for('relatorio', periodo='mes') }}" class="btn {% if periodo == 'mes' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+            Últimos 30 Dias
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 text-nowrap">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Produto</th>
+                        <th class="text-success text-center">Total de Entradas</th>
+                        <th class="text-warning text-center">Total de Saídas</th>
+                        <th class="text-center">Saldo no Período</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dados %}
+                    <tr>
+                        <td class="align-middle fw-bold">{{ item.nome }}</td>
+                        <td class="text-success text-center align-middle">{{ item.entradas }}</td>
+                        <td class="text-warning text-center align-middle">{{ item.saidas }}</td>
+                        <td class="text-center align-middle">
+                            <span class="badge {% if item.saldo_periodo > 0 %}bg-success{% elif item.saldo_periodo < 0 %}bg-danger{% else %}bg-secondary{% endif %} fs-6">
+                                {{ item.saldo_periodo }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            Nenhuma movimentação registrada neste período.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

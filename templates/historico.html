@@ -7,54 +7,56 @@
 
 <div class="card shadow-sm">
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>Data e Hora</th>
-                    <th>Produto</th>
-                    <th>Operação</th>
-                    <th>Quantidade</th>
-                    <th>Cliente</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for mov in movimentacoes %}
-                <tr>
-                    <td class="align-middle">{{ mov.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
-                    <td class="align-middle">{{ mov.produto.nome }}</td>
-                    
-                    <td class="align-middle">
-                        {% if mov.tipo == 'E' %}
-                            <span class="badge bg-success">Entrada</span>
-                        {% else %}
-                            <span class="badge bg-warning text-dark">Saída</span>
-                        {% endif %}
-                    </td>
-                    
-                    <td class="align-middle">
-                        {% if mov.tipo == 'E' %}
-                            <span class="text-success fw-bold">+ {{ mov.quantidade }}</span>
-                        {% else %}
-                            <span class="text-warning fw-bold">- {{ mov.quantidade }}</span>
-                        {% endif %}
-                    </td>
-                    <td class="align-middle">
-                        {% if mov.cliente %}
-                            {{ mov.cliente }}
-                        {% else %}
-                            <span class="text-muted">-</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4" class="text-center py-4 text-muted">
-                        Nenhuma movimentação registrada no histórico.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 text-nowrap">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Data e Hora</th>
+                        <th>Produto</th>
+                        <th>Operação</th>
+                        <th>Quantidade</th>
+                        <th>Cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mov in movimentacoes %}
+                    <tr>
+                        <td class="align-middle">{{ mov.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                        <td class="align-middle">{{ mov.produto.nome }}</td>
+
+                        <td class="align-middle">
+                            {% if mov.tipo == 'E' %}
+                                <span class="badge bg-success">Entrada</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Saída</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="align-middle">
+                            {% if mov.tipo == 'E' %}
+                                <span class="text-success fw-bold">+ {{ mov.quantidade }}</span>
+                            {% else %}
+                                <span class="text-warning fw-bold">- {{ mov.quantidade }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">
+                            {% if mov.cliente %}
+                                {{ mov.cliente }}
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            Nenhuma movimentação registrada no histórico.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

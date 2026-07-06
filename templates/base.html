@@ -12,10 +12,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('index') }}">Estoque Lojinha</a>
-            <div class="navbar-nav">
-                <a class="nav-link" href="{{ url_for('index') }}">Consultar Estoque</a>
-                <a class="nav-link" href="{{ url_for('novo_produto') }}">Registrar Produto</a>
-                <a class="nav-link" href="{{ url_for('historico') }}">Histórico</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="{{ url_for('novo_produto') }}">Registrar Produto</a>
+                    <a class="nav-link" href="{{ url_for('index') }}">Consultar Estoque</a>
+                    <a class="nav-link" href="{{ url_for('historico') }}">Histórico</a>
+                    <a class="nav-link" href="{{ url_for('relatorio') }}">Relatório</a>
+                </div>
             </div>
         </div>
     </nav>

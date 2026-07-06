@@ -10,45 +10,47 @@
 
 <div class="card shadow-sm">
     <div class="card-body p-0">
-        <table class="table table-striped table-hover mb-0">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Produto</th>
-                    <th>Preço (R$)</th>
-                    <th>Estoque</th>
-                    <th class="text-center">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for produto in produtos %}
-                <tr>
-                    <td class="align-middle">{{ produto.id }}</td>
-                    <td class="align-middle">{{ produto.nome }}</td>
-                    <td class="align-middle">{{ "%.2f"|format(produto.preco) }}</td>
-                    <td class="align-middle">
-                        <span class="badge {% if produto.quantidade_atual > 0 %}bg-success{% else %}bg-danger{% endif %} fs-6">
-                            {{ produto.quantidade_atual }} un.
-                        </span>
-                    </td>
-                    <td class="text-center">
-                        <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='E') }}" class="btn btn-sm btn-outline-success fw-bold">
-                            + Entrada
-                        </a>
-                        <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='S') }}" class="btn btn-sm btn-outline-warning fw-bold">
-                            - Saída
-                        </a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="5" class="text-center py-4 text-muted">
-                        Nenhum produto cadastrado ainda.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-0 text-nowrap">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Produto</th>
+                        <th>Preço (R$)</th>
+                        <th>Estoque</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                        <td class="align-middle">{{ produto.id }}</td>
+                        <td class="align-middle">{{ produto.nome }}</td>
+                        <td class="align-middle">{{ "%.2f"|format(produto.preco) }}</td>
+                        <td class="align-middle">
+                            <span class="badge {% if produto.quantidade_atual > 0 %}bg-success{% else %}bg-danger{% endif %} fs-6">
+                                {{ produto.quantidade_atual }} un.
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='E') }}" class="btn btn-sm btn-outline-success fw-bold">
+                                + Entrada
+                            </a>
+                            <a href="{{ url_for('movimentar', id_produto=produto.id, tipo='S') }}" class="btn btn-sm btn-outline-warning fw-bold">
+                                - Saída
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            Nenhum produto cadastrado ainda.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from models import db, Produto, Movimentacao
+from sqlalchemy import func
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -82,5 +84,39 @@ def historico():
     movimentacoes = Movimentacao.query.order_by(Movimentacao.data_hora.desc()).all()
     return render_template('historico.html', movimentacoes=movimentacoes)
 
+# Rota para o relatório de fluxo (semanal/mensal)
+@app.route('/relatorio')
+def relatorio():
+    periodo = request.args.get('periodo', 'mes')
+    hoje = datetime.utcnow()
+
+    if periodo == 'semana':
+        data_inicio = hoje - timedelta(days=7)
+    else:
+        data_inicio = hoje - timedelta(days=30)
+
+    produtos = Produto.query.all()
+    dados_relatorio = []
+
+    for p in produtos:
+        entradas = db.session.query(func.sum(Movimentacao.quantidade)).filter(
+            Movimentacao.produto_id == p.id,
+            Movimentacao.tipo == 'E',
+            Movimentacao.data_hora >= data_inicio
+        ).scalar() or 0
+        saidas = db.session.query(func.sum(Movimentacao.quantidade)).filter(
+            Movimentacao.produto_id == p.id,
+            Movimentacao.tipo == 'S',
+            Movimentacao.data_hora >= data_inicio
+        ).scalar() or 0
+        if entradas > 0 or saidas > 0:
+            dados_relatorio.append({
+                'nome': p.nome,
+                'entradas': entradas,
+                'saidas': saidas,
+                'saldo_periodo': entradas - saidas
+            })
+    return render_template('relatorio.html', dados=dados_relatorio, periodo=periodo)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
